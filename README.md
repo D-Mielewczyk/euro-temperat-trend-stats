@@ -37,3 +37,30 @@ European Climate Assessment & Dataset (ECA&D)
    - Write the project report and save it in the README.md file.
 
 ## Getting Started
+
+### download.py
+This Python script is designed to fetch, extract, and format weather data from ECA&D. 
+The data is fetched in the form of a zip file, extracted, and then formatted into csv format. 
+
+**File structure**: The script creates directories for the original data and the formatted CSV data. 
+The original data is stored in the `./original_data` directory, and the formatted CSV data is stored in the `./csv_data` directory.
+Each type of temperature data has its own folder ("mean", "min", "max"). 
+The resulting csv temperature data is saved **without** the leading string and zeroes.
+This means every type has the same name corresponding to the station source identifier.
+
+
+**Station Data**: The script also creates a CSV file for station locations from a specified text file. 
+The source file is located in the `./original_data/mean` directory and is named `stations.txt`. 
+The script skips the header of this file and saves the data as `stations.csv` in the current directory.
+
+The resulting CSV files have the following fields:
+
+| Field | Description                                               |
+| ----- |-----------------------------------------------------------|
+| STAID | Station identifier                                        |
+| SOUID | Source identifier                                         |
+| DATE  | Date in "YYYYMMDD" format                                 |
+| TN    | Minimum temperature in 0.1 °C                             |
+| Q_TN  | Quality code for TN (0='valid'; 1='suspect'; 9='missing') |
+
+This example is for minimum temperature "TN". Max temperature is saved with "TX" and mean with "TG".
