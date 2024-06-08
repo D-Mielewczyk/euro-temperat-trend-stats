@@ -63,7 +63,7 @@ def convert_to_csv(original_file, new_file, lines_to_skip=0):
     try:
         with open(original_file, 'r', encoding='utf8', errors='ignore') as file:
             lines = file.readlines()
-        with open(new_file, 'w') as file:
+        with open(new_file, 'w', encoding='utf8', errors='ignore') as file:
             file.writelines(lines[lines_to_skip:])
     except Exception as e:
         print(f"Failed to convert file: {e}")
