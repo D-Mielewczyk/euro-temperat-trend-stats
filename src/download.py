@@ -46,6 +46,7 @@ def format_data(original_dir, new_dir):
             destination = os.path.join(new_dir, filename)
 
             convert_to_csv(filepath, destination, 20)
+    print(f"Finished formatting data and saved to {new_dir}")
 
 
 def convert_to_csv(original_file, new_file, lines_to_skip=0):
@@ -60,7 +61,7 @@ def convert_to_csv(original_file, new_file, lines_to_skip=0):
     base = os.path.splitext(new_file)[0]
     new_file = base + ".csv"
     try:
-        with open(original_file, 'r') as file:
+        with open(original_file, 'r', encoding='utf8', errors='ignore') as file:
             lines = file.readlines()
         with open(new_file, 'w') as file:
             file.writelines(lines[lines_to_skip:])
@@ -80,15 +81,14 @@ if __name__ == "__main__":
     subdirs = ["mean", "min", "max"]
 
 
-    ECA_directory = "./original_data"
-    csv_data_dir = "./csv_data"
+    ECA_directory = "original_data"
+    csv_data_dir = "csv_data"
     stations_csv = "stations.csv"
 
     # download and format all data
     for i in range(3):
-        temp = os.path.join(ECA_directory, subdirs[i])
-        dest = os.path.join(csv_data_dir, subdirs[i])
-        format_data(temp, dest)
+        temp = os.path.join(".", ECA_directory, subdirs[i])
+        dest = os.path.join(".", csv_data_dir, subdirs[i])
         if not os.path.exists(temp):
             fetch_data(urls[i], temp)
             # convert to csv
