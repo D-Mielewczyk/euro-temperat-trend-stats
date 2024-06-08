@@ -69,10 +69,7 @@ def convert_to_csv(original_file, new_file, lines_to_skip=0):
         print(f"Failed to convert file: {e}")
 
 
-
-
-
-if __name__ == "__main__":
+def download_main(base_folder):
     # data source urls
     mean_url = "https://knmi-ecad-assets-prd.s3.amazonaws.com/download/ECA_blend_tg.zip"
     min_url = "https://knmi-ecad-assets-prd.s3.amazonaws.com/download/ECA_blend_tn.zip"
@@ -87,17 +84,23 @@ if __name__ == "__main__":
 
     # download and format all data
     for i in range(3):
-        temp = os.path.join(".", ECA_directory, subdirs[i])
-        dest = os.path.join(".", csv_data_dir, subdirs[i])
+        temp = os.path.join(base_folder, ECA_directory, subdirs[i])
+        dest = os.path.join(base_folder, csv_data_dir, subdirs[i])
         if not os.path.exists(temp):
             fetch_data(urls[i], temp)
             # convert to csv
-            dest = os.path.join(csv_data_dir, subdirs[i])
             format_data(temp, dest)
         else:
             print(f"Original {temp} dir already exists. Skipping")
 
 
     # create a stations csv file for station locations.
-    source = os.path.join(ECA_directory, subdirs[0], "stations.txt")
-    convert_to_csv(source, stations_csv, 17)
+    source = os.path.join(base_folder,ECA_directory, subdirs[0], "stations.txt")
+    stations_path = os.path.join(base_folder, stations_csv)
+    convert_to_csv(source, stations_path, 17)
+
+
+if __name__ == "__main__":
+    folder = os.path.join(".")
+    download_main(folder)
+
