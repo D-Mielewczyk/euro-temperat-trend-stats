@@ -64,3 +64,20 @@ The resulting CSV files have the following fields:
 | Q_TN  | Quality code for TN (0='valid'; 1='suspect'; 9='missing') |
 
 This example is for minimum temperature "TN". Max temperature is saved with "TX" and mean with "TG".
+
+### clean_climate_data.py
+This Python script is designed to clean and format weather data using PySpark. The script removes invalid data entries, fills missing values with the average temperature, and renames the cleaned CSV files sequentially. It handles three types of temperature data: minimum, mean, and maximum temperatures.
+
+**File structure**: The script processes data stored in the ./csv_data directory and saves the cleaned data in the ./cleaned_data directory. Each type of temperature data has its own folder within both directories ("min", "mean", "max").
+
+
+**Data Cleaning**: The script performs several cleaning tasks:
+- Fills missing/invalid temperature values with the average temperature for that dataset.
+- Converts the temperature values from tenths of a degree to degrees Celsius.
+- Casts data types to ensure consistency.
+- Removes any .crc files and renames the remaining .csv files sequentially.
+
+**Running on EMR**
+Ensure PySpark is installed on your EMR cluster. Upload the script to the EMR cluster. SSH into the EMR cluster and run the script:
+
+```poetry run python clean.py```
