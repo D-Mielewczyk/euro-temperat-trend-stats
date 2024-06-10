@@ -70,9 +70,14 @@ This Python script is designed to clean and format weather data using PySpark. T
 
 **File structure**: The script processes data stored in the ./csv_data directory and saves the cleaned data in the ./cleaned_data directory. Each type of temperature data has its own folder within both directories ("min", "mean", "max").
 
+
 **Data Cleaning**: The script performs several cleaning tasks:
 - Fills missing/invalid temperature values with the average temperature for that dataset.
 - Converts the temperature values from tenths of a degree to degrees Celsius.
 - Casts data types to ensure consistency.
 - Removes any .crc files and renames the remaining .csv files sequentially.
-  
+
+**Running on EMR**
+Ensure PySpark is installed on your EMR cluster. Upload the script to the EMR cluster. SSH into the EMR cluster and run the script:
+
+```poetry run python clean.py```
