@@ -46,6 +46,7 @@ def format_data(original_dir, new_dir):
             destination = os.path.join(new_dir, filename)
 
             convert_to_csv(filepath, destination, 20)
+    print(f"Finished formatting data and saved to {new_dir}")
 
 
 def convert_to_csv(original_file, new_file, lines_to_skip=0):
@@ -60,18 +61,15 @@ def convert_to_csv(original_file, new_file, lines_to_skip=0):
     base = os.path.splitext(new_file)[0]
     new_file = base + ".csv"
     try:
-        with open(original_file, 'r') as file:
+        with open(original_file, 'r', encoding='utf8', errors='ignore') as file:
             lines = file.readlines()
-        with open(new_file, 'w') as file:
+        with open(new_file, 'w', encoding='utf8', errors='ignore') as file:
             file.writelines(lines[lines_to_skip:])
     except Exception as e:
         print(f"Failed to convert file: {e}")
 
 
-
-
-
-if __name__ == "__main__":
+def download_main(base_folder):
     # data source urls
     mean_url = "https://knmi-ecad-assets-prd.s3.amazonaws.com/download/ECA_blend_tg.zip"
     min_url = "https://knmi-ecad-assets-prd.s3.amazonaws.com/download/ECA_blend_tn.zip"
@@ -80,24 +78,29 @@ if __name__ == "__main__":
     subdirs = ["mean", "min", "max"]
 
 
-    ECA_directory = "./original_data"
-    csv_data_dir = "./csv_data"
+    ECA_directory = "original_data"
+    csv_data_dir = "csv_data"
     stations_csv = "stations.csv"
 
     # download and format all data
     for i in range(3):
-        temp = os.path.join(ECA_directory, subdirs[i])
-        dest = os.path.join(csv_data_dir, subdirs[i])
-        format_data(temp, dest)
+        temp = os.path.join(base_folder, ECA_directory, subdirs[i])
+        dest = os.path.join(base_folder, csv_data_dir, subdirs[i])
         if not os.path.exists(temp):
             fetch_data(urls[i], temp)
             # convert to csv
-            dest = os.path.join(csv_data_dir, subdirs[i])
             format_data(temp, dest)
         else:
             print(f"Original {temp} dir already exists. Skipping")
 
 
     # create a stations csv file for station locations.
-    source = os.path.join(ECA_directory, subdirs[0], "stations.txt")
-    convert_to_csv(source, stations_csv, 17)
+    source = os.path.join(base_folder,ECA_directory, subdirs[0], "stations.txt")
+    stations_path = os.path.join(base_folder, stations_csv)
+    convert_to_csv(source, stations_path, 17)
+
+
+if __name__ == "__main__":
+    folder = os.path.join(".")
+    download_main(folder)
+
