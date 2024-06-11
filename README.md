@@ -65,7 +65,7 @@ The resulting CSV files have the following fields:
 
 This example is for minimum temperature "TN". Max temperature is saved with "TX" and mean with "TG".
 
-### clean_climate_data.py
+### clean.py
 This Python script is designed to clean and format weather data using PySpark. The script removes invalid data entries, fills missing values with the average temperature, and renames the cleaned CSV files sequentially. It handles three types of temperature data: minimum, mean, and maximum temperatures.
 
 **File structure**: The script processes data stored in the ./csv_data directory and saves the cleaned data in the ./cleaned_data directory. Each type of temperature data has its own folder within both directories ("min", "mean", "max").
