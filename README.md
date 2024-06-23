@@ -67,7 +67,7 @@ This example is for minimum temperature "TN". Max temperature is saved with "TX"
 
 **Running the script**:
 
-1. Make sure your dependencies are up to date using `poetry update`.
+1. Make sure your dependencies are up to date using `poetry update`
 2. `poetry run python src/download.py`
 
 ### clean.py
@@ -85,8 +85,8 @@ This Python script is designed to clean and format weather data using PySpark. T
 
 **Running the script**:
 
-1. Make sure you have downloaded the data using `download.py`.
-2. Make sure your dependencies are up to date using `poetry update`.
+1. Make sure you have downloaded the data using `download.py`
+2. Make sure your dependencies are up to date using `poetry update`
 3. `poetry run python src/clean.py`
 
 ## Steps in the ETL process
