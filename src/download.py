@@ -1,8 +1,8 @@
 import io
 import os
+import zipfile
 
 import requests
-import zipfile
 
 
 def fetch_data(zip_url, directory):
@@ -37,7 +37,7 @@ def format_data(original_dir, new_dir):
     os.makedirs(new_dir, exist_ok=True)
 
     for filename in os.listdir(original_dir):
-        if filename.startswith('T'):
+        if filename.startswith("T"):
             filepath = os.path.join(original_dir, filename)
             filename = filename[9:]
             filename = os.path.splitext(filename)[0]
@@ -61,9 +61,9 @@ def convert_to_csv(original_file, new_file, lines_to_skip=0):
     base = os.path.splitext(new_file)[0]
     new_file = base + ".csv"
     try:
-        with open(original_file, 'r', encoding='utf8', errors='ignore') as file:
+        with open(original_file, "r", encoding="utf8", errors="ignore") as file:
             lines = file.readlines()
-        with open(new_file, 'w', encoding='utf8', errors='ignore') as file:
+        with open(new_file, "w", encoding="utf8", errors="ignore") as file:
             file.writelines(lines[lines_to_skip:])
     except Exception as e:
         print(f"Failed to convert file: {e}")
@@ -76,7 +76,6 @@ def download_main(base_folder):
     max_url = "https://knmi-ecad-assets-prd.s3.amazonaws.com/download/ECA_blend_tx.zip"
     urls = [mean_url, min_url, max_url]
     subdirs = ["mean", "min", "max"]
-
 
     ECA_directory = "original_data"
     csv_data_dir = "csv_data"
@@ -93,9 +92,8 @@ def download_main(base_folder):
         else:
             print(f"Original {temp} dir already exists. Skipping")
 
-
     # create a stations csv file for station locations.
-    source = os.path.join(base_folder,ECA_directory, subdirs[0], "stations.txt")
+    source = os.path.join(base_folder, ECA_directory, subdirs[0], "stations.txt")
     stations_path = os.path.join(base_folder, stations_csv)
     convert_to_csv(source, stations_path, 17)
 
@@ -103,4 +101,3 @@ def download_main(base_folder):
 if __name__ == "__main__":
     folder = os.path.join(".")
     download_main(folder)
-
