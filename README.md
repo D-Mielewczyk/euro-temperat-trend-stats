@@ -56,7 +56,7 @@ The script skips the header of this file and saves the data as `stations.csv` in
 The resulting CSV files have the following fields:
 
 | Field | Description                                               |
-| ----- |-----------------------------------------------------------|
+| ----- | --------------------------------------------------------- |
 | STAID | Station identifier                                        |
 | SOUID | Source identifier                                         |
 | DATE  | Date in "YYYYMMDD" format                                 |
@@ -64,6 +64,11 @@ The resulting CSV files have the following fields:
 | Q_TN  | Quality code for TN (0='valid'; 1='suspect'; 9='missing') |
 
 This example is for minimum temperature "TN". Max temperature is saved with "TX" and mean with "TG".
+
+**Running the script**:
+
+1. Make sure your dependencies are up to date using `poetry update`.
+2. `poetry run python src/download.py`
 
 ### clean.py
 
@@ -78,7 +83,13 @@ This Python script is designed to clean and format weather data using PySpark. T
 - Casts data types to ensure consistency.
 - Removes any .crc files and renames the remaining .csv files sequentially.
 
-**Running on EMR**
-Ensure PySpark is installed on your EMR cluster. Upload the script to the EMR cluster. SSH into the EMR cluster and run the script:
+**Running the script**:
 
-```poetry run python clean.py```
+1. Make sure you have downloaded the data using `download.py`.
+2. Make sure your dependencies are up to date using `poetry update`.
+3. `poetry run python src/clean.py`
+
+## Steps in the ETL process
+
+1. `download.py`
+2. `clean.py`
