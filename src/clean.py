@@ -105,13 +105,13 @@ def load_data(spark: pyspark.sql.SparkSession):
         "max": os.path.join(main_path, "max"),
     }
 
-    min_df = spark.read.csv(input_paths["min"], header=True, inferSchema=True)
+    min_df = spark.read.csv(input_paths["min"], header=True, inferSchema=True, pathGlobFilter="*.csv")
     min_df = min_df.select([col(c).alias(c.strip()) for c in min_df.columns])
 
-    mean_df = spark.read.csv(input_paths["mean"], header=True, inferSchema=True)
+    mean_df = spark.read.csv(input_paths["mean"], header=True, inferSchema=True, pathGlobFilter="*.csv")
     mean_df = mean_df.select([col(c).alias(c.strip()) for c in mean_df.columns])
 
-    max_df = spark.read.csv(input_paths["max"], header=True, inferSchema=True)
+    max_df = spark.read.csv(input_paths["max"], header=True, inferSchema=True, pathGlobFilter="*.csv")
     max_df = max_df.select([col(c).alias(c.strip()) for c in max_df.columns])
 
     return min_df, mean_df, max_df
