@@ -39,24 +39,24 @@ European Climate Assessment & Dataset (ECA&D)
 ## Getting Started
 
 ### download.py
-This Python script is designed to fetch, extract, and format weather data from ECA&D. 
-The data is fetched in the form of a zip file, extracted, and then formatted into csv format. 
 
-**File structure**: The script creates directories for the original data and the formatted CSV data. 
+This Python script is designed to fetch, extract, and format weather data from ECA&D.
+The data is fetched in the form of a zip file, extracted, and then formatted into csv format.
+
+**File structure**: The script creates directories for the original data and the formatted CSV data.
 The original data is stored in the `./original_data` directory, and the formatted CSV data is stored in the `./csv_data` directory.
 Each type of temperature data has its own folder ("mean", "min", "max"). 
 The resulting csv temperature data is saved **without** the leading string and zeroes.
 This means every type has the same name corresponding to the station source identifier.
 
-
-**Station Data**: The script also creates a CSV file for station locations from a specified text file. 
-The source file is located in the `./original_data/mean` directory and is named `stations.txt`. 
+**Station Data**: The script also creates a CSV file for station locations from a specified text file.
+The source file is located in the `./original_data/mean` directory and is named `stations.txt`.
 The script skips the header of this file and saves the data as `stations.csv` in the current directory.
 
 The resulting CSV files have the following fields:
 
 | Field | Description                                               |
-| ----- |-----------------------------------------------------------|
+| ----- | --------------------------------------------------------- |
 | STAID | Station identifier                                        |
 | SOUID | Source identifier                                         |
 | DATE  | Date in "YYYYMMDD" format                                 |
@@ -65,22 +65,30 @@ The resulting CSV files have the following fields:
 
 This example is for minimum temperature "TN". Max temperature is saved with "TX" and mean with "TG".
 
+**Running the script**:
+
+1. Make sure your dependencies are up to date using `poetry update`
+2. `poetry run python src/download.py`
+
 ### clean.py
+
 This Python script is designed to clean and format weather data using PySpark. The script removes invalid data entries, fills missing values with the average temperature, and renames the cleaned CSV files sequentially. It handles three types of temperature data: minimum, mean, and maximum temperatures.
 
 **File structure**: The script processes data stored in the ./csv_data directory and saves the cleaned data in the ./cleaned_data directory. Each type of temperature data has its own folder within both directories ("min", "mean", "max").
 
-
 **Data Cleaning**: The script performs several cleaning tasks:
+
 - Fills missing/invalid temperature values with the average temperature for that dataset.
 - Converts the temperature values from tenths of a degree to degrees Celsius.
 - Casts data types to ensure consistency.
 - Removes any .crc files and renames the remaining .csv files sequentially.
 
-**Running on EMR**
-Ensure PySpark is installed on your EMR cluster. Upload the script to the EMR cluster. SSH into the EMR cluster and run the script:
+**Running the script**:
 
-```poetry run python clean.py```
+1. Make sure you have downloaded the data using `download.py`
+2. Make sure your dependencies are up to date using `poetry update`
+3. `poetry run python src/clean.py`
+
 
 ### detect_top5_temperature_changes.py
 
@@ -89,3 +97,8 @@ Ensure PySpark is installed on your EMR cluster. Upload the script to the EMR cl
 Detect 5 Areas with the Biggest Temperature Changes of all time for each station with a quality code for TN = 0 (0 - 'valid', 1 - 'suspect, 9 - 'missing')
 
 ```poetry run python src/detect_top5_temperature_changes.py```
+
+## Steps in the ETL process
+
+1. `download.py`
+2. `clean.py`

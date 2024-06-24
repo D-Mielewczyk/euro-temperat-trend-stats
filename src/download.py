@@ -1,9 +1,12 @@
 import io
+import logging
 import os
-
-import requests
 import zipfile
 
+import requests
+
+# Configure logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 def fetch_data(zip_url, directory):
     """
@@ -13,6 +16,7 @@ def fetch_data(zip_url, directory):
     :param directory: the directory name of the extracted zip
     """
     try:
+        logging.info(f"Fetching data from {zip_url}")
         response = requests.get(zip_url)
         response.raise_for_status()
 
@@ -20,10 +24,10 @@ def fetch_data(zip_url, directory):
         with zipfile.ZipFile(io.BytesIO(response.content)) as zip_ref:
             zip_ref.extractall(directory)
 
-        print(f"Data fetched and saved to {directory}")
+        logging.info(f"Data fetched and saved to {directory}")
 
     except requests.exceptions.RequestException as e:
-        print(f"Error fetching original_data: {e} \n Program will exit")
+        logging.error(f"Error fetching original_data: {e} \n Program will exit")
         exit()
 
 
@@ -35,18 +39,24 @@ def format_data(original_dir, new_dir):
     :param new_dir: destination directory for the current type of measurement.
     """
     os.makedirs(new_dir, exist_ok=True)
+    logging.info(f"Formatting data from {original_dir} to {new_dir}")
 
-    for filename in os.listdir(original_dir):
-        if filename.startswith('T'):
-            filepath = os.path.join(original_dir, filename)
-            filename = filename[9:]
-            filename = os.path.splitext(filename)[0]
-            filename = str(int(filename))
+    files = [f for f in os.listdir(original_dir) if f.startswith("T")]
+    total_files = len(files)
+    for i, filename in enumerate(files):
+        filepath = os.path.join(original_dir, filename)
+        filename = filename[9:]
+        filename = os.path.splitext(filename)[0]
+        filename = str(int(filename))
 
-            destination = os.path.join(new_dir, filename)
+        destination = os.path.join(new_dir, filename)
 
-            convert_to_csv(filepath, destination, 20)
-    print(f"Finished formatting data and saved to {new_dir}")
+        convert_to_csv(filepath, destination, 20)
+        
+        progress = ((i + 1) / total_files) * 100
+        logging.info(f"Formatting progress: {progress:.2f}%")
+
+    logging.info(f"Finished formatting data and saved to {new_dir}")
 
 
 def convert_to_csv(original_file, new_file, lines_to_skip=0):
@@ -61,12 +71,14 @@ def convert_to_csv(original_file, new_file, lines_to_skip=0):
     base = os.path.splitext(new_file)[0]
     new_file = base + ".csv"
     try:
-        with open(original_file, 'r', encoding='utf8', errors='ignore') as file:
+        logging.info(f"Converting {original_file} to {new_file}")
+        with open(original_file, "r", encoding="utf8", errors="ignore") as file:
             lines = file.readlines()
-        with open(new_file, 'w', encoding='utf8', errors='ignore') as file:
+        with open(new_file, "w", encoding="utf8", errors="ignore") as file:
             file.writelines(lines[lines_to_skip:])
+        logging.info(f"Successfully converted {original_file} to {new_file}")
     except Exception as e:
-        print(f"Failed to convert file: {e}")
+        logging.error(f"Failed to convert file {original_file}: {e}")
 
 
 def download_main(base_folder):
@@ -77,30 +89,35 @@ def download_main(base_folder):
     urls = [mean_url, min_url, max_url]
     subdirs = ["mean", "min", "max"]
 
-
     ECA_directory = "original_data"
     csv_data_dir = "csv_data"
     stations_csv = "stations.csv"
 
     # download and format all data
+    total_steps = len(urls) * 2 + 1  # 2 steps for each type of data (fetch and format), plus 1 step for stations
+    completed_steps = 0
+
     for i in range(3):
         temp = os.path.join(base_folder, ECA_directory, subdirs[i])
         dest = os.path.join(base_folder, csv_data_dir, subdirs[i])
         if not os.path.exists(temp):
             fetch_data(urls[i], temp)
-            # convert to csv
+            completed_steps += 1
+            logging.info(f"Overall progress: {((completed_steps / total_steps) * 100):.2f}%")
+            
             format_data(temp, dest)
+            completed_steps += 1
+            logging.info(f"Overall progress: {((completed_steps / total_steps) * 100):.2f}%")
         else:
-            print(f"Original {temp} dir already exists. Skipping")
-
+            logging.info(f"Original {temp} dir already exists. Skipping")
 
     # create a stations csv file for station locations.
-    source = os.path.join(base_folder,ECA_directory, subdirs[0], "stations.txt")
+    source = os.path.join(base_folder, ECA_directory, subdirs[0], "stations.txt")
     stations_path = os.path.join(base_folder, stations_csv)
     convert_to_csv(source, stations_path, 17)
-
+    completed_steps += 1
+    logging.info(f"Overall progress: {((completed_steps / total_steps) * 100):.2f}%")
 
 if __name__ == "__main__":
     folder = os.path.join(".")
     download_main(folder)
-
