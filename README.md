@@ -81,3 +81,11 @@ This Python script is designed to clean and format weather data using PySpark. T
 Ensure PySpark is installed on your EMR cluster. Upload the script to the EMR cluster. SSH into the EMR cluster and run the script:
 
 ```poetry run python clean.py```
+
+### detect_top5_temperature_changes.py
+
+**Detect 5 Areas with the Biggest Temperature Changes**
+
+Detect 5 Areas with the Biggest Temperature Changes of all time for each station with a quality code for TN = 0 (0 - 'valid', 1 - 'suspect, 9 - 'missing')
+
+```poetry run python src/detect_top5_temperature_changes.py```
