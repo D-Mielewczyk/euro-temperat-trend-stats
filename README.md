@@ -93,3 +93,41 @@ This Python script is designed to clean and format weather data using PySpark. T
 
 1. `download.py`
 2. `clean.py`
+
+## Climate Data Column Descriptions
+
+This document provides detailed information about each column in the climate dataset used for the European Temperature Trend Analysis project. It includes the data type, description, possible values, and relevance of each column.
+
+### Columns in the Temperature Data CSV Files
+
+| Column Name | Data Type | Description | Possible Values | Relevance |
+| ----------- | --------- | ----------- | --------------- | --------- |
+| `STAID`     | Integer   | Station identifier, a unique ID for each weather station. | Any positive integer (e.g., 12345) | Highly relevant. Used to identify the source of the temperature data. |
+| `SOUID`     | Integer   | Source identifier, another unique ID related to the data source. | Any positive integer (e.g., 67890) | Less relevant. Helps in cross-referencing the data source. |
+| `DATE`      | String    | Date of the temperature measurement in "YYYYMMDD" format. | Any valid date string (e.g., "20240101") | Highly relevant. Used for time-series analysis of temperature changes. |
+| `TN`        | Float     | Minimum temperature of the day in tenths of degrees Celsius. | Any float value (e.g., -120.0 to 450.0, representing -12.0°C to 45.0°C) | Highly relevant. Represents daily minimum temperatures, essential for trend analysis. |
+| `Q_TN`      | Integer   | Quality code for `TN`. Indicates the reliability of the data. | 0 (valid), 1 (suspect), 9 (missing) | Relevant. Helps in data cleaning by identifying and handling invalid or missing data. |
+| `TX`        | Float     | Maximum temperature of the day in tenths of degrees Celsius. | Any float value (e.g., -120.0 to 450.0, representing -12.0°C to 45.0°C) | Highly relevant. Represents daily maximum temperatures, essential for trend analysis. |
+| `Q_TX`      | Integer   | Quality code for `TX`. Indicates the reliability of the data. | 0 (valid), 1 (suspect), 9 (missing) | Relevant. Helps in data cleaning by identifying and handling invalid or missing data. |
+| `TG`        | Float     | Mean temperature of the day in tenths of degrees Celsius. | Any float value (e.g., -120.0 to 450.0, representing -12.0°C to 45.0°C) | Highly relevant. Represents daily mean temperatures, essential for trend analysis. |
+| `Q_TG`      | Integer   | Quality code for `TG`. Indicates the reliability of the data. | 0 (valid), 1 (suspect), 9 (missing) | Relevant. Helps in data cleaning by identifying and handling invalid or missing data. |
+
+### Columns in the Station Data CSV File
+
+| Column Name | Data Type | Description | Possible Values | Relevance |
+| ----------- | --------- | ----------- | --------------- | --------- |
+| `STAID`     | Integer   | Station identifier, a unique ID for each weather station. | Any positive integer (e.g., 12345) | Highly relevant. Used to identify the source of the temperature data. |
+| `STANAME`   | String    | Name of the weather station. | Any string (e.g., "Amsterdam") | Less relevant. Can be useful for understanding the geographical context. |
+| `CN`        | String    | Country code where the station is located. | Any two-letter country code (e.g., "NL" for Netherlands) | Relevant. Helps in regional analysis and filtering data by country. |
+| `LAT`       | Float     | Latitude of the weather station. | Any float value (e.g., 52.3676) | Highly relevant. Useful for mapping and spatial analysis. |
+| `LON`       | Float     | Longitude of the weather station. | Any float value (e.g., 4.9041) | Highly relevant. Useful for mapping and spatial analysis. |
+| `HGHT`      | Float     | Height above sea level of the weather station. | Any float value (e.g., 12.0) | Slightly elevant. Can be useful for understanding climate patterns related to altitude. |
+| `START`     | Integer   | Year when the station started recording data. | Any year (e.g., 1950) | Relevant. Helps in understanding the historical range of data availability. |
+| `STOP`      | Integer   | Year when the station stopped recording data (if applicable). | Any year or null if still active (e.g., 2020 or null) | Relevant. Useful for filtering and understanding data continuity. |
+| `SOURCE`    | String    | Source of the data. | Any string (e.g., "ECA&D") | Less relevant. Useful only for data provenance and quality assessment. |
+
+### Summary
+
+Each column in the climate dataset has a specific role in the overall analysis. The temperature columns (`TN`, `TX`, `TG`) are crucial for identifying trends in minimum, maximum, and mean temperatures. The quality codes (`Q_TN`, `Q_TX`, `Q_TG`) help ensure data integrity by marking suspect or missing data points. The station-related columns (`STAID`, `STANAME`, `CN`, `LAT`, `LON`, `HGHT`, `START`, `STOP`, `SOURCE`) provide essential metadata for spatial and temporal analysis, enabling a deeper understanding of the geographical and historical context of the temperature data.
+
+---
