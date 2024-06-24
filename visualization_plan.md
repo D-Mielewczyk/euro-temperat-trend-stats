@@ -79,16 +79,21 @@ The data consists of temperature records (minimum, mean, maximum) from the Europ
 ### **Data Queries**
 
 **Line Plot Data Query:**
+![Zrzut ekranu 2024-06-24 230110](https://github.com/D-Mielewczyk/euro-temperature-trend-stats/assets/108231926/051dddc3-0fb7-4eca-a5b1-9fa6a38979cc)
 
 Bar Chart Data Query:
+![Zrzut ekranu 2024-06-24 230156](https://github.com/D-Mielewczyk/euro-temperature-trend-stats/assets/108231926/f0841b10-d990-4c76-84ae-daed96954182)
 
 Heatmap Data Query:
+![Zrzut ekranu 2024-06-24 230220](https://github.com/D-Mielewczyk/euro-temperature-trend-stats/assets/108231926/305eaa7a-dfc6-405d-ba79-8566cdccbc55)
 
 Other Helpful Querries:
 
 Receiving Station ID closest to clicked on map
+![Zrzut ekranu 2024-06-24 230248](https://github.com/D-Mielewczyk/euro-temperature-trend-stats/assets/108231926/5cc20111-5f12-405d-9119-f6b4d63be031)
 
 Receiving date and temperature (depending on which one is needed - max,min,mean):
+![Zrzut ekranu 2024-06-24 230318](https://github.com/D-Mielewczyk/euro-temperature-trend-stats/assets/108231926/ec19977f-5151-4841-9481-cf5eef57b3f4)
 
 The example code for handling mouse press and creating a simple Europe map will be included.
 
