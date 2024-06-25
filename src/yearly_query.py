@@ -49,19 +49,19 @@ def get_line_plot_data(spark):
     logging.info(f"Loading data from cleaned_data/min")
     min_df = load_data(spark, "cleaned_data/min")
     logging.info(f"Processing min data")
-    save_yearly_avg(min_df, "TN", "Q_TN", "line_plot_data/min")
+    save_yearly_avg(min_df, "TN", "Q_TN", "yearly_data/min")
     
     # Process mean temperatures
     logging.info(f"Loading data from cleaned_data/mean")
     mean_df = load_data(spark, "cleaned_data/mean")
     logging.info(f"Processing mean data")
-    save_yearly_avg(mean_df, "TG", "Q_TG", "line_plot_data/mean")
+    save_yearly_avg(mean_df, "TG", "Q_TG", "yearly_data/mean")
 
     # Process max temperatures
     logging.info(f"Loading data from cleaned_data/max")
     max_df = load_data(spark, "cleaned_data/max")
     logging.info(f"Processing max data")
-    save_yearly_avg(max_df, "TX", "Q_TX", "line_plot_data/max")
+    save_yearly_avg(max_df, "TX", "Q_TX", "yearly_data/max")
 
 if __name__ == "__main__":
     # spark = create_spark_session()
