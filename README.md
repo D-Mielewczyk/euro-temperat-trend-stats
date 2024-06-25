@@ -89,19 +89,22 @@ This Python script is designed to clean and format weather data using PySpark. T
 2. Make sure your dependencies are up to date using `poetry update`
 3. `poetry run python src/clean.py`
 
-
 ### detect_top5_temperature_changes.py
 
-**Detect 5 Areas with the Biggest Temperature Changes**
+**Detect 5 Areas with the Biggest Temperature Changes**:
 
 Detect 5 Areas with the Biggest Temperature Changes of all time for each station with a quality code for TN = 0 (0 - 'valid', 1 - 'suspect, 9 - 'missing')
 
-```poetry run python src/detect_top5_temperature_changes.py```
+1. Make sure you have downloaded the data using `download.py`
+2. Make sure your dependencies are up to date using `poetry update`
+3. Make sure you have cleaned the data with `clean.py`
+4. ```poetry run python src/detect_top5_temperature_changes.py```
 
 ## Steps in the ETL process
 
 1. `download.py`
 2. `clean.py`
+3. `detect_top5_temperature_changes.py`
 
 ## Climate Data Column Descriptions
 
