@@ -51,15 +51,17 @@
   - `detect_top5_changes(yearly_data)`: Identifies and returns the top 5 years with the highest temperature changes.
 - **Technologies**: Uses `numpy` and `pandas` for statistical calculations and analysis.
 
-### `README.md`
-- **Purpose**: Provides an overview of the project, instructions for setting up the environment, and how to run the scripts.
-- **Contents**:
-  - **Introduction**: Brief description of the project.
-  - **Setup**: Instructions on setting up the environment and installing necessary dependencies.
-  - **Usage**: Steps to run each script and expected outcomes.
+### `data_viz.py`
+- **Purpose**: This script is used for visualizing the temperature data trends and significant changes using line plots and bar charts.
+- **Key Functions**:
+  - `plot_temperature_trends(data)`: Plots the yearly temperature trends using a line plot.
+  - `plot_top5_changes(data)`: Plots the top 5 temperature changes using a bar chart.
+- **Technologies**: Uses `matplotlib.pyplot` for plotting.
 
 ---
 
 ## Conclusion
 
 This project aimed to analyze temperature data to identify significant changes over the years. Despite challenges with data cleaning and integration, the scripts work together to download, clean, analyze, and detect key trends in temperature changes. This documentation serves as a comprehensive guide to the project's progress, challenges, outcomes, and code functionality.
+
+---
