@@ -89,6 +89,38 @@ This Python script is designed to clean and format weather data using PySpark. T
 2. Make sure your dependencies are up to date using `poetry update`
 3. `poetry run python src/clean.py`
 
+### yearly_query.py
+This python script is designed to prepare data format for plot visualization. It splits data by station ID and calculates an average temperature for each year for every station. It handles evaluation of min/max/mean yearly temperature separately.
+**File structure**
+The script processes data stored in ./cleaned_data and saves the results of specific stations in the ./yearly_data directory. Similarly to cleaned_data, the division into ("min", "mean", "max") subfolders has been maintained to facilitate visualization. In the appropiate subfolders there are further subfolders named STAID="station_identifier"", which contain a csv file with information for each year for the selected station.
+
+- **Destination Directory: `yearly_data`**
+
+  - `min/`
+    - `STAID=A/`
+      - `<generated_csv_file_name>.csv` (for min, station A)
+    - `STAID=B/`
+      - `<generated_csv_file_name>.csv` (for min, station B)
+  - `max/`
+    - `STAID=C/`
+      - `<generated_csv_file_name>.csv` (for max, station C)
+    - `STAID=D/`
+      - `<generated_csv_file_name>.csv` (for max, station D)
+  - `mean/`
+    - `STAID=E/`
+      - `<generated_csv_file_name>.csv` (for mean, station E)
+    - `STAID=F/`
+      - `<generated_csv_file_name>.csv` (for mean, station F)
+     
+**Calculating the average annual temperature**
+The script appropriately analyzes subsequent csv files, for each found ID and for each year of data collected by the station, it calculates the average temperature and the result is added to the csv file created for a given station.
+
+**Running the script**:
+
+1. Make sure you have downloaded the data using `download.py` and cleaned them using 'clean.py'
+2. Make sure your dependencies are up to date using `poetry update`
+3. `poetry run python src/yearly_query.py`
+
 ### detect_top5_temperature_changes.py
 
 **Detect 5 Areas with the Biggest Temperature Changes**:
