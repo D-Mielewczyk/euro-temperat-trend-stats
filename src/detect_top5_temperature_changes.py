@@ -41,13 +41,11 @@ def main():
     max_df = max_df.filter(col("Q_TX") == 0)
 
     min_temp_changes = min_df.groupBy("STAID").agg(
-        spark_min("TN").alias("min_temp"),
-        spark_min("DATE").alias("min_temp_date")
+        spark_min("TN").alias("min_temp")
     )
 
     max_temp_changes = max_df.groupBy("STAID").agg(
-        spark_max("TX").alias("max_temp"),
-        spark_max("DATE").alias("max_temp_date")
+        spark_max("TX").alias("max_temp")
     )
 
     temp_changes_df = min_temp_changes.join(max_temp_changes, on="STAID", how="inner")
@@ -62,8 +60,6 @@ def main():
     top5_areas_df = top5_areas_df.withColumnRenamed("STAID", "Station ID") \
         .withColumnRenamed("min_temp", "Minimum Temperature") \
         .withColumnRenamed("max_temp", "Maximum Temperature") \
-        .withColumnRenamed("min_temp_date", "Date of Minimum Temperature") \
-        .withColumnRenamed("max_temp_date", "Date of Maximum Temperature") \
         .withColumnRenamed("temp_change", "Temperature Change")
 
     top5_staids = [row['Station ID'] for row in top5_areas_df.collect()]
@@ -89,7 +85,8 @@ def main():
             move_single_csv(temp_output_path_max, station_output_path_max)
 
     if top5_areas_df.head(1):
-        top5_areas_df.coalesce(1).write.mode("overwrite").option("header", "true").csv(temp_dir)
+        top5_areas_df.select("Station ID", "Minimum Temperature", "Maximum Temperature", "Temperature Change") \
+            .coalesce(1).write.mode("overwrite").option("header", "true").csv(temp_dir)
         move_single_csv(temp_dir, summary_output_path)
 
     spark.stop()
