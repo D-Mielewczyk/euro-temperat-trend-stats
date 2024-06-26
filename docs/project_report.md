@@ -63,6 +63,12 @@
   - `plot_top5_changes(data)`: Plots the top 5 temperature changes using a bar chart.
 - **Technologies**: Uses `matplotlib.pyplot` for plotting.
 
+![first](https://github.com/D-Mielewczyk/euro-temperature-trend-stats/blob/SamePinchy-patch-1/assets/1.png?raw=true)
+![second](https://github.com/D-Mielewczyk/euro-temperature-trend-stats/blob/SamePinchy-patch-1/assets/2.png?raw=true)
+![third](https://github.com/D-Mielewczyk/euro-temperature-trend-stats/blob/SamePinchy-patch-1/assets/3.png?raw=true)
+![fourth](https://github.com/D-Mielewczyk/euro-temperature-trend-stats/blob/SamePinchy-patch-1/assets/4.png?raw=true)
+![fifth](https://github.com/D-Mielewczyk/euro-temperature-trend-stats/blob/SamePinchy-patch-1/assets/5.png?raw=true)
+
 ---
 
 ## Conclusion
