@@ -90,6 +90,7 @@ This Python script is designed to clean and format weather data using PySpark. T
 3. `poetry run python src/clean.py`
 
 ### yearly_query.py
+
 This python script is designed to prepare data format for plot visualization. It splits data by station ID and calculates an average temperature for each year for every station. It handles evaluation of min/max/mean yearly temperature separately.
 
 **File structure**
@@ -112,7 +113,7 @@ The script processes data stored in ./cleaned_data and saves the results of spec
       - `<generated_csv_file_name>.csv` (for mean, station E)
     - `STAID=F/`
       - `<generated_csv_file_name>.csv` (for mean, station F)
-     
+
 **Calculating the average annual temperature**
 The script appropriately analyzes subsequent csv files, for each found ID and for each year of data collected by the station, it calculates the average temperature and the result is added to the csv file created for a given station.
 
@@ -171,12 +172,13 @@ This document provides detailed information about each column in the climate dat
 | `STOP`      | Integer   | Year when the station stopped recording data (if applicable). | Any year or null if still active (e.g., 2020 or null) | Relevant. Useful for filtering and understanding data continuity. |
 | `SOURCE`    | String    | Source of the data. | Any string (e.g., "ECA&D") | Less relevant. Useful only for data provenance and quality assessment. |
 
-# Docs
+## Docs
 
+---
 
-## How to run
+### How to run
 
-### Docker
+#### Docker
 
 1. **Install Docker**: Ensure that Docker is installed and running on your computer. You can download it from the [official Docker website](https://www.docker.com/get-started).
 2. **Run the Documentation Server**:
@@ -188,7 +190,7 @@ This document provides detailed information about each column in the climate dat
 
 Note: If you are using a Windows command prompt, replace `${PWD}` with `%cd%`. If you're using PowerShell, use `${PWD}`.
 
-### Python
+#### Python
 
 1. **Install Python**: Ensure that Python is installed on your computer. You can download it from the [official Python website](https://www.python.org/downloads/). It's recommended to use Python 3.6 or higher.
 
@@ -208,7 +210,7 @@ Start the local MkDocs server using the command below. This will serve your docu
 
 After running this command, you should see output indicating that the server is running, and you can view your documentation in a web browser at the address provided (typically `http://127.0.0.1:8000/`).
 
-### Summary
+#### Summary
 
 Each column in the climate dataset has a specific role in the overall analysis. The temperature columns (`TN`, `TX`, `TG`) are crucial for identifying trends in minimum, maximum, and mean temperatures. The quality codes (`Q_TN`, `Q_TX`, `Q_TG`) help ensure data integrity by marking suspect or missing data points. The station-related columns (`STAID`, `STANAME`, `CN`, `LAT`, `LON`, `HGHT`, `START`, `STOP`, `SOURCE`) provide essential metadata for spatial and temporal analysis, enabling a deeper understanding of the geographical and historical context of the temperature data.
 
