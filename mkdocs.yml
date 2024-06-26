@@ -1,0 +1,15 @@
+site_name: Euro Temperature Trend Stats
+
+theme:
+  name: material
+  #favicon: assets/icon.png
+  #logo: assets/icon.png
+
+#extra_css:
+  - assets/stylesheets/images.css
+
+nav:
+  - Wstęp: index.md
+  - Poetry Usage: POETRY.md
+  - Wymagania Projektowe: wymagania_projektowe.md
+  - Yearly Data: yearly_data.md
