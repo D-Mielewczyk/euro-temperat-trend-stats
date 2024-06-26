@@ -9,8 +9,8 @@ Each station folder contains 1 CSV file corresponding to the station with a name
 
 This file's logging information could be improved.
 
-
 ## File structure
+
 - **Source Directory: `cleaned_data`**
 
 - **Destination Directory: `yearly_data`**
