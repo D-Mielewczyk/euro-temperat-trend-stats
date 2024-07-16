@@ -215,3 +215,4 @@ After running this command, you should see output indicating that the server is 
 Each column in the climate dataset has a specific role in the overall analysis. The temperature columns (`TN`, `TX`, `TG`) are crucial for identifying trends in minimum, maximum, and mean temperatures. The quality codes (`Q_TN`, `Q_TX`, `Q_TG`) help ensure data integrity by marking suspect or missing data points. The station-related columns (`STAID`, `STANAME`, `CN`, `LAT`, `LON`, `HGHT`, `START`, `STOP`, `SOURCE`) provide essential metadata for spatial and temporal analysis, enabling a deeper understanding of the geographical and historical context of the temperature data.
 
 ---
+
